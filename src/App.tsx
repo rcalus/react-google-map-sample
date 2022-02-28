@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import MapContainerOpenStreet from './components/MapContainerOpenStreet';
+import ShowPinpointCoordinates, { Coordinates } from './components/ShowPinpointCoordinates';
 
 function App() {
+  const [coordinates, setCoordinates] = useState<Coordinates[]>([])
+  const addCoordinates = (newCoordinates: Coordinates) => {
+    setCoordinates(coordinates => [...coordinates, newCoordinates]);
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <MapContainerOpenStreet onMapClick={addCoordinates} />
+      <ShowPinpointCoordinates coordinates={coordinates} />
+    </>
   );
 }
 
 export default App;
+
